@@ -1,0 +1,36 @@
+.btn-container {
+  display: flex;
+  gap: 20px;
+  justify-content:center;
+  align-items: center;
+  margin-left: 100px; 
+  line-height: 100%;
+}
+
+.custom-btn {
+  padding: 30px 30px;
+  border-radius: 10px;
+  font-weight: 400;
+  font-size: 25px;
+  font-style: normal;
+  background-color: #FFF9E5;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.custom-btn:hover {
+  background-color: #FBEBB5;
+  color: black;
+}
+
+.bo {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: #9F9F9F;
+  text-align: left;
+  margin: 0;
+}
