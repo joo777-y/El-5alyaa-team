@@ -8,6 +8,7 @@ import Layout from './components/Layout'
 import Home from './components/home/home'
 import { Toaster } from "react-hot-toast";
 import Cart from './components/cart/cart'
+import MyAccount from './components/my-account/my-account.jsx';
 
 function App() {
   
@@ -28,6 +29,7 @@ function App() {
       <Route path="product/:id" element={<ProductPage />} />
       {/* أي مسار غير معروف → يمكن ترجع للصفحة الرئيسية */}
       {/* <Route path="*" element={<Navigate to="/" />} /> */}
+      <Route path="my-account" element={<MyAccount />} /> 
     </Route>
   </Routes>
       
