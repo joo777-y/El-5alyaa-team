@@ -7,6 +7,7 @@ import Blog from './components/blog/blog'
 import Layout from './components/Layout'
 import Home from './components/home/home'
 import { Toaster } from "react-hot-toast";
+import Cart from './components/cart/cart'
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
       <Route path="home" element={<Home />} />
       <Route path="blog" element={<Blog />} />
       <Route path="shop" element={<Shop />} />
+      <Route path="cart" element={<Cart />} />
       <Route path="product/:id" element={<ProductPage />} />
       {/* أي مسار غير معروف → يمكن ترجع للصفحة الرئيسية */}
       {/* <Route path="*" element={<Navigate to="/" />} /> */}

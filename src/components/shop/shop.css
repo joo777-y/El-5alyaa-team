@@ -8,6 +8,7 @@
     background-size: cover !important;
     backdrop-filter: blur(130px);
     position: relative;
+    margin-top: 60px;
 }
 .ecommerce-overlay{
     position: absolute;
