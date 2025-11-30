@@ -1,0 +1,226 @@
+.instagram-section {
+  position: relative;
+  background-color: #fdfaf9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  text-align: center;
+  overflow: hidden;
+  background-image: url(../../../images/1461f3d6ff74c027a1888544144abe4be6e02cbf.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.instagram-content {
+  position: relative;
+  z-index: 2;
+}
+
+.instagram-content h2 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.instagram-content p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.follow-btn {
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #000;
+}
+
+.follow-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.instagram-bg {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  max-width: 60%;
+  opacity: 0.9;
+  z-index: 1;
+}
+
+  .instagram-content h2 {
+    font-size: 28px;
+  }
+
+  .instagram-content p {
+    font-size: 14px;
+  }
+
+  .follow-btn {
+    padding: 10px 25px;
+    font-size: 14px;
+  }
+/* Responsive */
+
+@media (max-width: 768px) {
+  .instagram-bg {
+    max-width: 80%;
+    bottom: -20px;
+    right: -20px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .instagram-section {
+    padding: 40px 10px;
+  }
+
+  .instagram-bg {
+    display: none;
+  }
+}
+
+
+.footer {
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  font-family: Arial, sans-serif;
+  z-index: 100;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding:5px 20px;
+  text-align: left;
+  color: #999; 
+}
+
+.footer-top div {
+  margin-top: 20px;
+}
+
+.footer-top h4 {
+  margin-bottom: 10px;
+  color: #999;
+  font-weight: normal;
+  font-size: 15px; 
+}
+.footer-help li {color: #000;
+font-weight: 500;
+}
+.footer-top ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-top ul li {
+  margin-bottom: 5px;
+  font-weight: 200;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.footer-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s;
+} 
+
+.footer-links li a:hover {
+  color: #a67c52; 
+}
+.footer-newsletter h4 {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+}
+.footer-Input {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+.footer-newsletter input {
+  border: none;
+  outline: none;
+  padding: 6px 0;
+  font-size: 12px;
+  width: 230px;
+  background: transparent;
+  color: #000;
+  border-bottom: 1px solid #000; 
+}
+
+.footer-newsletter input::placeholder {
+  color: #7a7a7a;
+  font-size: 12px;
+}
+
+.footer-newsletter button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  border-bottom: 1px solid #000;
+  height: 28px;
+}
+
+.email-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000;
+  padding: 6px 0;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 10px;
+  color: #000;
+}
+
+
+.footer-bottom {
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  color: #000;
+  border-top: 1px solid #ddd;
+}
+
+
+/* Responsive */
+
+@media (max-width: 450px) {
+  .footer-newsletter input {
+    width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-top div {
+    margin: 10px 0;
+  }
+}
