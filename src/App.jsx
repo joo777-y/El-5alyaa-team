@@ -9,6 +9,7 @@ import Home from './components/home/home'
 import { Toaster } from "react-hot-toast";
 import Cart from './components/cart/cart'
 import MyAccount from './components/my-account/my-account.jsx';
+import ContactPage from './components/contact/contact.jsx'
 
 function App() {
   
@@ -26,6 +27,7 @@ function App() {
       <Route path="blog" element={<Blog />} />
       <Route path="shop" element={<Shop />} />
       <Route path="cart" element={<Cart />} />
+      <Route path="contact" element={<ContactPage />} />
       <Route path="product/:id" element={<ProductPage />} />
       {/* أي مسار غير معروف → يمكن ترجع للصفحة الرئيسية */}
       {/* <Route path="*" element={<Navigate to="/" />} /> */}
