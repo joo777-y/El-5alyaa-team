@@ -1,1 +1,73 @@
 @import "tailwindcss";
+
+*{
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: #ffefff;
+}
+
+.search-box {
+  position: relative;
+  width: 350px;
+  height: 45px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+}
+
+.search-box input {
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+  padding-right: 45px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  border-radius: 25px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  cursor: pointer;
+}
+.custom-placeholder {
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 0;
+  box-shadow: none;
+  width: 100%;
+  
+}
+
+.custom-placeholder::placeholder {
+  color: #9F9F9F;
+  opacity: 1;
+}
+
+.subscribe-btn {
+  border: none;
+  border-bottom: 1px solid black;
+  background: none;
+  color: black;
+  font-weight: 600;
+  padding: 0;
+  text-decoration: none;
+}
+.subscribe-btn:focus,
+.subscribe-btn:hover {
+  outline: none;
+  box-shadow: none;
+  color: black;
+  border-bottom: 1px solid black;
+}

@@ -1,0 +1,37 @@
+.ecommerce-img{
+    max-width: 100%;
+    height: 250px;
+    background-image: url(/images/pexels-ron-lach-9594428.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+    backdrop-filter: blur(130px);
+    position: relative;
+    margin-top: 65px;
+}
+.ecommerce-overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(130px);
+    background-color: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    padding-top: 70px;
+}
+.ecommerce-overlay img{
+    margin: auto;
+    width: 50px;
+    height: 35px;
+}
+.ecommerce-overlay p{
+    font-weight: 400;
+}
+.ecommerce-overlay .p1{
+    font-weight: 600;
+    font-size: 28px;
+}
+.ecommerce-overlay span{
+    font-weight: 600;
+}
