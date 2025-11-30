@@ -1,14 +1,18 @@
 import React from 'react'
 import './App.css'
-
+import Home from "./Home";
 function App() {
   
 
   return (
     <>
-      <h1 class="text-3xl font-bold underline text-amber-300">
-    Hello world!
-  </h1>
+  <BrowserRouter>
+      <Routes>
+        
+        <Route path="/" element={<Home />} />
+
+      </Routes>
+    </BrowserRouter>
     </>
   )
 }
