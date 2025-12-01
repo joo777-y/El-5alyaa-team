@@ -32,6 +32,7 @@ function App() {
       {/* أي مسار غير معروف → يمكن ترجع للصفحة الرئيسية */}
       {/* <Route path="*" element={<Navigate to="/" />} /> */}
       <Route path="my-account" element={<MyAccount />} /> 
+      <Route path="checkout" element={<Checkout />} />
     </Route>
   </Routes>
       
@@ -39,4 +40,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

@@ -160,7 +160,6 @@ export default function MyAccount() {
       </main>
 
       <FeaturesSection />
-      <Footer />
     </div>
   );
 }

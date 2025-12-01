@@ -49,6 +49,12 @@ export function CartProvider({ children }) {
     (total, item) => total + item.price * item.quantity,
     0
   );
+  // Clear cart
+const clearCart = () => {
+  setCartItems([]);
+  localStorage.removeItem("cartItems");
+  window.dispatchEvent(new Event("storage"));
+};
 
   return (
     <CartContext.Provider
@@ -56,7 +62,8 @@ export function CartProvider({ children }) {
         cartItems,
         addToCart,
         removeFromCart,
-        totalPrice
+        totalPrice,
+        clearCart
       }}
     >
       {children}

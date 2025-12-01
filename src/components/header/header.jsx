@@ -28,7 +28,7 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-6 text-2xl">
-            <FiUser />
+           <Link to="my-account"><FiUser /></Link>
 
             {/* Cart Icon */}
             <div className="relative cursor-pointer" onClick={() => setCartOpen(true)}>
