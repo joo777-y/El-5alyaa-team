@@ -9,7 +9,9 @@ import Home from './components/home/home'
 import { Toaster } from "react-hot-toast";
 import Cart from './components/cart/cart'
 import MyAccount from './components/my-account/my-account.jsx';
-import ContactPage from './components/contact/contact.jsx'
+import ContactPage from './components/contact/contact.jsx';
+import Checkout from './components/checkout/checkout.jsx'
+
 
 function App() {
   
@@ -33,6 +35,7 @@ function App() {
       {/* <Route path="*" element={<Navigate to="/" />} /> */}
       <Route path="my-account" element={<MyAccount />} /> 
       <Route path="checkout" element={<Checkout />} />
+      <Route path="*" element={<h3 className='p-7 mt-18 text-center'>Error 404 <br/>Page not found</h3>} />
     </Route>
   </Routes>
       

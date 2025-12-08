@@ -14,7 +14,7 @@ export default function Header() {
     return (
     <>
       {/* Header */}
-      <header className="w-full fixed top-0 left-0 z-50 bg-amber-100">
+      <header className="w-full fixed top-0 left-0 z-180 bg-amber-100">
         <div className="flex items-center justify-between px-6 py-4">
 
           <div className="hidden lg:block w-10"></div>
@@ -50,7 +50,7 @@ export default function Header() {
 
       {/* CART SIDEBAR */}
       {cartOpen && (
-        <div className="fixed inset-0 bg-black/40 z-50" onClick={() => setCartOpen(false)}>
+        <div className="fixed inset-0 bg-black/40 z-150" onClick={() => setCartOpen(false)}>
           <div
             className="absolute right-0 top-0 h-full w-80 bg-white shadow-xl p-6 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
