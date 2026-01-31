@@ -1,162 +1,182 @@
-import React, { useState } from "react";
-import HeroBackground from '../../../images/p1.jpg';
-import LogoIcon from '../../../images/ecoo-removebg-preview.png';
+import React, { useState, useEffect } from "react";
+import HeroBackground from "../../../images/p1.jpg";
+import LogoIcon from "../../../images/ecoo-removebg-preview.png";
+import { useNavigate, useLocation } from "react-router-dom";
 
+
+/* ================= Hero ================= */
 const HeroSection = () => (
   <div className="w-full pt-20">
-    <div className="relative h-72 flex items-center justify-center overflow-hidden bg-gray-100">
+    <div className="relative h-72 flex items-center justify-center overflow-hidden">
       <img
         src={HeroBackground}
-        alt="Hero Background"
-        className="absolute inset-0 w-full h-full object-cover filter brightness-110 blur-sm opacity-80"
+        className="absolute inset-0 w-full h-full object-cover blur-sm opacity-80"
+        alt="bg"
       />
-      <div className="relative z-10 text-center px-4">
-        <div className="mb-2">
-          <img src={LogoIcon} alt="Logo" className="w-12 h-auto mx-auto" />
-        </div>
-        <h1 className="text-3xl md:text-4xl font-medium text-gray-800 mb-2">My Account</h1>
-        <p className="text-gray-700 text-sm font-medium">
-          <a href="#" className="hover:underline">Home</a> &gt; My account
+      <div className="relative z-10 text-center">
+        <img src={LogoIcon} className="w-12 mx-auto mb-2" alt="logo" />
+        <h1 className="text-4xl font-medium">My Account</h1>
+        <p className="text-sm mt-1">Home &gt; My Account</p>
+      </div>
+    </div>
+  </div>
+);
+
+/* ================= Features ================= */
+const FeaturesSection = () => (
+  <div className="bg-pink-50 py-20 px-6 sm:px-16 flex flex-col sm:flex-row justify-between gap-10 sm:gap-0">
+    {["Free Delivery", "90 Days Return", "Secure Payment"].map((t) => (
+      <div key={t} className="text-center max-w-xs mx-auto sm:mx-0">
+        <h3 className="font-semibold mb-1">{t}</h3>
+        <p className="text-sm text-gray-500">
+          For all orders over $50, consectetur adipiscing elit.
         </p>
       </div>
-    </div>
+    ))}
   </div>
 );
 
-const FeaturesSection = () => (
-  <div className="bg-pink-50 py-20 px-4 md:px-16 flex flex-col md:flex-row justify-center items-center md:justify-between gap-10">
-    <div className="text-center max-w-xs">
-      <h3 className="text-gray-800 font-semibold text-lg mb-1">Free Delivery</h3>
-      <p className="text-gray-500 text-sm">For all orders over $50, consectetur adipiscing elit.</p>
-    </div>
-    <div className="text-center max-w-xs">
-      <h3 className="text-gray-800 font-semibold text-lg mb-1">90 Days Return</h3>
-      <p className="text-gray-500 text-sm">If goods have problems, consectetur adipiscing elit.</p>
-    </div>
-    <div className="text-center max-w-xs">
-      <h3 className="text-gray-800 font-semibold text-lg mb-1">Secure Payment</h3>
-      <p className="text-gray-500 text-sm">100% secure payment, consectetur adipiscing elit.</p>
-    </div>
-  </div>
-);
-
-const Footer = () => (
-  <footer className="bg-white py-20 px-4 md:px-16 text-gray-800">
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8 border-b border-gray-200 pb-8">
-      <div className="flex flex-col">
-        <p>400 University Drive Suite 200 Coral</p>
-        <p>Gables,</p>
-        <p>FL 33134 USA</p>
-      </div>
-      <div className="flex flex-col">
-        <h4 className="font-medium mb-3 text-gray-500">Links</h4>
-        <a href="#" className="text-gray-500 text-sm mb-2 hover:underline">Home</a>
-        <a href="#" className="text-gray-500 text-sm mb-2 hover:underline">Shop</a>
-        <a href="#" className="text-gray-500 text-sm mb-2 hover:underline">About</a>
-        <a href="#" className="text-gray-500 text-sm mb-2 hover:underline">Contact</a>
-      </div>
-      <div className="flex flex-col">
-        <h4 className="font-medium mb-3 text-gray-500">Help</h4>
-        <a href="#" className="text-gray-500 text-sm mb-2 hover:underline">Payment Options</a>
-        <a href="#" className="text-gray-500 text-sm mb-2 hover:underline">Returns</a>
-        <a href="#" className="text-gray-500 text-sm mb-2 hover:underline">Privacy Policies</a>
-      </div>
-      <div className="flex flex-col">
-        <h4 className="font-medium mb-3 text-gray-500">Newsletter</h4>
-        <div className="flex gap-2">
-          <input type="email" placeholder="Enter Your Email Address" className="border-b border-gray-800 p-2 flex-1 focus:outline-none" />
-          <button className="bg-white border-b border-gray-800 p-2 font-medium text-gray-800 uppercase hover:bg-gray-800 hover:text-white transition">Subscribe</button>
-        </div>
-      </div>
-    </div>
-    <div className="text-gray-500 text-sm">© 2022 Meubel House. All rights reserved</div>
-  </footer>
-);
-
+/* ================= Page ================= */
 export default function MyAccount() {
-  const [loginData, setLoginData] = useState({
-    usernameOrEmail: "",
-    password: "",
-    remember: false
-  });
-  const [registerEmail, setRegisterEmail] = useState("");
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [registerData, setRegisterData] = useState({ email: "", password: "" });
+  const [currentUser, setCurrentUser] = useState(null);
+  const [error, setError] = useState("");
 
-  const handleLoginChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setLoginData(prevData => ({
-      ...prevData,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+  const getUsers = () => JSON.parse(localStorage.getItem("users")) || [];
+  const saveUsers = (users) => localStorage.setItem("users", JSON.stringify(users));
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (user) setCurrentUser(user);
+  }, []);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!registerData.email || !registerData.password) {
+      setError("All fields are required");
+      setRegisterData({ email: "", password: "" });
+      return;
+    }
+
+    const users = getUsers();
+    if (users.find((u) => u.email === registerData.email)) {
+      setError("Email already exists");
+      setRegisterData({ email: "", password: "" });
+      return;
+    }
+
+    users.push(registerData);
+    saveUsers(users);
+    setRegisterData({ email: "", password: "" });
+    alert("Account created successfully");
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setError("");
+
+    const users = getUsers();
+    const user = users.find(
+      (u) => u.email === loginData.email && u.password === loginData.password
+    );
+
+    if (!user) {
+      setError("Invalid email or password");
+      setLoginData({ email: "", password: "" });
+      return;
+    }
+
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    setCurrentUser(user);
+    
+    setLoginData({ email: "", password: "" });
+    if (location.state?.from) {
+        navigate(location.state.from);
+  }
+
+  };
+
+  const logout = () => {
+    localStorage.removeItem("currentUser");
+    setCurrentUser(null);
   };
 
   return (
-    <div className="w-full">
+    <div>
       <HeroSection />
 
-      <main className="py-20 px-4 md:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
-          {/* Log In Section */}
-          <div className="bg-white p-6 shadow rounded-md w-full">
-            <h2 className="text-2xl font-medium mb-6">Log In</h2>
-            <form className="flex flex-col gap-4">
-              <label className="text-gray-800 text-sm font-medium">Username or email address</label>
-              <input
-                type="text"
-                name="usernameOrEmail"
-                value={loginData.usernameOrEmail}
-                onChange={handleLoginChange}
-                className="border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
-              />
-              <label className="text-gray-800 text-sm font-medium">Password</label>
-              <input
-                type="password"
-                name="password"
-                value={loginData.password}
-                onChange={handleLoginChange}
-                className="border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
-              />
-              <div className="flex items-center justify-start gap-4 mt-4">
-                <label className="flex items-center gap-2 text-gray-500 text-sm">
-                  <input
-                    type="checkbox"
-                    name="remember"
-                    checked={loginData.remember}
-                    onChange={handleLoginChange}
-                    className="w-4 h-4 border-gray-300"
-                  />
-                  Remember me
-                </label>
-                <button className="px-6 py-2 border border-gray-800 text-gray-800 rounded hover:bg-gray-800 hover:text-white transition">
-                  Log In
-                </button>
-              </div>
-              <a href="#" className="text-gray-500 text-sm mt-2 inline-block hover:underline">Lost Your Password?</a>
-            </form>
+      <main className="py-20 px-6 sm:px-16">
+        {currentUser ? (
+          <div className="max-w-md mx-auto text-center bg-white p-6 shadow rounded">
+            <h2 className="text-xl mb-4">Welcome {currentUser.email}</h2>
+            <button
+              onClick={logout}
+              className="bg-gray-800 text-white px-6 py-2"
+            >
+              Logout
+            </button>
           </div>
-
-          {/* Register Section */}
-          <div className="bg-white p-6 shadow rounded-md w-full">
-            <h2 className="text-2xl font-medium mb-6">Register</h2>
-            <form className="flex flex-col gap-4">
-              <label className="text-gray-800 text-sm font-medium">Email address</label>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-6xl mx-auto">
+            {/* Login */}
+            <form onSubmit={handleLogin} className="bg-white p-6 shadow rounded">
+              <h2 className="text-2xl mb-6">Log In</h2>
+              <label>Email</label>
               <input
                 type="email"
-                value={registerEmail}
-                onChange={(e) => setRegisterEmail(e.target.value)}
-                className="border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
+                className="border p-3 w-full mb-4"
+                value={loginData.email}
+                onChange={(e) =>
+                  setLoginData({ ...loginData, email: e.target.value })
+                }
               />
-              <p className="text-gray-500 text-sm mt-2">
-                A link to set a new password will be sent to your email address.
-              </p>
-              <p className="text-gray-500 text-sm mt-2">
-                Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our <a href="#" className="underline font-bold">privacy policy</a>.
-              </p>
-              <button className="mt-4 px-6 py-2 bg-gray-800 text-white rounded hover:opacity-90 transition">
-                Register
-              </button>
+              <label>Password</label>
+              <input
+                type="password"
+                className="border p-3 w-full mb-4"
+                value={loginData.password}
+                onChange={(e) =>
+                  setLoginData({ ...loginData, password: e.target.value })
+                }
+              />
+              <button className="border px-6 py-2">Log In</button>
+            </form>
+
+            {/* Register */}
+            <form onSubmit={handleRegister} className="bg-white p-6 shadow rounded">
+              <h2 className="text-2xl mb-6">Register</h2>
+              <label>Email</label>
+              <input
+                type="email"
+                className="border p-3 w-full mb-4"
+                value={registerData.email}
+                onChange={(e) =>
+                  setRegisterData({ ...registerData, email: e.target.value })
+                }
+              />
+              <label>Password</label>
+              <input
+                type="password"
+                className="border p-3 w-full mb-4"
+                value={registerData.password}
+                onChange={(e) =>
+                  setRegisterData({ ...registerData, password: e.target.value })
+                }
+              />
+              <button className="bg-gray-800 text-white px-6 py-2">Register</button>
             </form>
           </div>
-        </div>
+        )}
+
+        {error && (
+          <p className="text-center text-red-600 mt-6">{error}</p>
+        )}
       </main>
 
       <FeaturesSection />

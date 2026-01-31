@@ -11,6 +11,7 @@ import Cart from './components/cart/cart'
 import MyAccount from './components/my-account/my-account.jsx';
 import ContactPage from './components/contact/contact.jsx';
 import Checkout from './components/checkout/checkout.jsx'
+import ScrollToTop from './ScrollToTop.jsx'
 
 
 function App() {
@@ -19,25 +20,24 @@ function App() {
   return (
     <>
     <Toaster position="top-center" />
+    
+      <ScrollToTop />
       
       
-       <Routes>
-    <Route path="/" element={<Layout />}>
-      {/* أول ما الموقع يفتح → يروح Home */}
-      <Route index element={<Home />} />
-      <Route path="home" element={<Home />} />
-      <Route path="blog" element={<Blog />} />
-      <Route path="shop" element={<Shop />} />
-      <Route path="cart" element={<Cart />} />
-      <Route path="contact" element={<ContactPage />} />
-      <Route path="product/:id" element={<ProductPage />} />
-      {/* أي مسار غير معروف → يمكن ترجع للصفحة الرئيسية */}
-      {/* <Route path="*" element={<Navigate to="/" />} /> */}
-      <Route path="my-account" element={<MyAccount />} /> 
-      <Route path="checkout" element={<Checkout />} />
-      <Route path="*" element={<h3 className='p-7 mt-18 text-center'>Error 404 <br/>Page not found</h3>} />
-    </Route>
-  </Routes>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="home" element={<Home />} />
+        <Route path="blog" element={<Blog />} />
+        <Route path="shop" element={<Shop />} />
+        <Route path="cart" element={<Cart />} />
+        <Route path="contact" element={<ContactPage />} />
+        <Route path="product/:id" element={<ProductPage />} />
+        <Route path="my-account" element={<MyAccount />} /> 
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="*" element={<h3 className='p-7 mt-18 text-center text-3xl'>Error 404 <br/>Page not found</h3>} />
+        </Route>
+      </Routes>
       
     </>
   )

@@ -15,6 +15,7 @@ export default function Shop() {
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
+  const [loading, setLoading]=useState(true);
 
   useEffect(() => {
   axios
@@ -27,7 +28,9 @@ export default function Shop() {
         setTotalPages(res.data.totalPages);
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => setLoading(false));
+    
 }, [currentPage]);
 
 function shuffleArray(array) {
@@ -55,6 +58,8 @@ let sortedProducts = [...products];
   const displayedProducts = search
   ? filteredProducts       
   : sortedProducts;
+
+  if(loading) return <h4 className='mt-32 mb-8'>Loading.......</h4>
 
   
 

@@ -6,6 +6,7 @@ import './single-product.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from "../cartContext";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 export default function ProductPage() {
@@ -16,6 +17,8 @@ export default function ProductPage() {
   const [counter, setCounter]= useState(1);
   const [activeTab, setActiveTab] = useState("description");
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // GET PRODUCT
   useEffect(() => {
@@ -44,15 +47,24 @@ export default function ProductPage() {
   const { addToCart } = useCart();
 
   const handleAdd = () => {
-    if (!selectedColor) {
-      alert("Please choose a color first!");
-      return;
-    }
+  // 🔒 check login
+  const currentUser = localStorage.getItem("currentUser");
 
-    addToCart(product, selectedColor, counter);
-    // alert("Added to cart!");
-    //  toast.success("Added to cart!");
-  };
+  if (!currentUser) {
+    navigate("/my-account", {
+      state: { from: location.pathname }
+    });
+    return;
+  }
+
+  if (!selectedColor) {
+    alert("Please choose a color first!");
+    return;
+  }
+
+  addToCart(product, selectedColor, counter);
+};
+
 
   if (!product) return <p className="text-center p-10 text-lg">Loading...</p>;
 

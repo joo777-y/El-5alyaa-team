@@ -2,6 +2,7 @@ import React from "react";
 import { useCart } from "../cartContext";
 import { FiTrash2 } from "react-icons/fi";
 import img12 from '../../../images/ecoo-removebg-preview.png'
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const { cartItems, removeFromCart } = useCart();
@@ -148,10 +149,12 @@ export default function Cart() {
               <span>Total</span>
               <span>{subtotal} EGP</span>
             </div>
-
-            <button className="w-full bg-black text-white py-3 rounded-lg mt-6 hover:bg-gray-900 transition cursor-pointer">
-              Check Out
+            <Link to="/checkout">
+              <button className="w-full bg-black text-white py-3 rounded-lg mt-6 hover:bg-gray-900 transition cursor-pointer">
+                Check Out
             </button>
+            </Link>
+            
           </div>
         )}
 

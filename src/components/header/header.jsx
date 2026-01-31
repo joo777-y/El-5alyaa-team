@@ -1,24 +1,28 @@
 import React, { useState } from "react";
-import { FiUser, FiSearch, FiHeart, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
+import {
+  FiUser,
+  FiShoppingCart,
+  FiMenu,
+  FiX,
+} from "react-icons/fi";
 import { useCart } from "../cartContext";
 import { Link } from "react-router-dom";
 
-
 export default function Header() {
   const [open, setOpen] = useState(false);
-    const [cartOpen, setCartOpen] = useState(false);
-    const {removeFromCart, totalPrice } = useCart();
+  const [cartOpen, setCartOpen] = useState(false);
 
-    
-  const { cartItems } = useCart();
-    return (
+  const { cartItems, removeFromCart, totalPrice } = useCart();
+
+  return (
     <>
-      {/* Header */}
+      {/* HEADER */}
       <header className="w-full fixed top-0 left-0 z-180 bg-amber-100">
         <div className="flex items-center justify-between px-6 py-4">
 
-          <div className="hidden lg:block w-10"></div>
+          <div className="hidden lg:block w-10" />
 
+          {/* Desktop Nav */}
           <nav className="hidden lg:flex gap-10 text-gray-800 text-lg font-medium">
             <Link to="/">Home</Link>
             <Link to="/shop">Shop</Link>
@@ -27,11 +31,17 @@ export default function Header() {
             <Link to="/blog">Blogs</Link>
           </nav>
 
+          {/* Icons */}
           <div className="flex items-center gap-6 text-2xl">
-           <Link to="my-account"><FiUser /></Link>
+            <Link to="/my-account">
+              <FiUser />
+            </Link>
 
             {/* Cart Icon */}
-            <div className="relative cursor-pointer" onClick={() => setCartOpen(true)}>
+            <div
+              className="relative cursor-pointer"
+              onClick={() => setCartOpen(true)}
+            >
               <FiShoppingCart />
               {cartItems.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-amber-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
@@ -40,7 +50,7 @@ export default function Header() {
               )}
             </div>
 
-            {/* Mobile menu toggle */}
+            {/* Mobile Menu Button */}
             <button className="lg:hidden" onClick={() => setOpen(!open)}>
               {open ? <FiX /> : <FiMenu />}
             </button>
@@ -48,63 +58,90 @@ export default function Header() {
         </div>
       </header>
 
+      {/* MOBILE MENU */}
+      {open && (
+        <div className="fixed top-16 left-0 w-full bg-amber-100 z-160 lg:hidden shadow-md">
+          <nav className="flex flex-col items-center gap-6 py-6 text-lg font-medium">
+            <Link to="/" onClick={() => setOpen(false)}>Home</Link>
+            <Link to="/shop" onClick={() => setOpen(false)}>Shop</Link>
+            <Link to="/about" onClick={() => setOpen(false)}>About</Link>
+            <Link to="/contact" onClick={() => setOpen(false)}>Contact</Link>
+            <Link to="/blog" onClick={() => setOpen(false)}>Blogs</Link>
+          </nav>
+        </div>
+      )}
+
       {/* CART SIDEBAR */}
       {cartOpen && (
-        <div className="fixed inset-0 bg-black/40 z-150" onClick={() => setCartOpen(false)}>
+        <div
+          className="fixed inset-0 bg-black/40 z-150"
+          onClick={() => setCartOpen(false)}
+        >
           <div
             className="absolute right-0 top-0 h-full w-80 bg-white shadow-xl p-6 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold">Shopping Cart</h2>
-              <FiX className="text-xl cursor-pointer" onClick={() => setCartOpen(false)} />
+              <FiX
+                className="text-xl cursor-pointer"
+                onClick={() => setCartOpen(false)}
+              />
             </div>
 
-            {/* ITEMS */}
+            {/* Cart Items */}
             {cartItems.length === 0 ? (
-  <p className="text-gray-500 text-center py-6">Cart is empty</p>
-) : (
-  <>
-    {cartItems.map((item, i) => (
-      <div key={i} className="flex items-center gap-4 border-b py-4 relative">
+              <p className="text-gray-500 text-center py-6">
+                Cart is empty
+              </p>
+            ) : (
+              <>
+                {cartItems.map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-4 border-b py-4 relative"
+                  >
+                    <img
+                      src={item.image}
+                      className="w-16 h-16 rounded-md object-cover"
+                    />
 
-        {/* Product Image */}
-        <img
-          src={item.image}
-          className="w-16 h-16 rounded-md object-cover"
-        />
+                    <div className="flex-1">
+                      <p className="font-semibold">{item.name}</p>
+                      <p className="text-sm text-gray-600">
+                        Color: {item.color}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        Quantity: {item.quantity}
+                      </p>
+                      <p className="font-bold">
+                        {item.price * item.quantity} EGP
+                      </p>
+                    </div>
 
-        {/* Product Info */}
-        <div className="flex-1">
-          <p className="font-semibold">{item.name}</p>
-          <p className="text-sm text-gray-600">Color: {item.color}</p>
-          <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
-          <p className="font-bold">{item.price * item.quantity} EGP</p>
-        </div>
+                    <button
+                      onClick={() =>
+                        removeFromCart(item.id, item.color)
+                      }
+                      className="text-red-500 hover:text-red-700 text-sm absolute right-2 bottom-4"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
 
-        {/* REMOVE BUTTON */}
-        <button
-          onClick={() => removeFromCart(item.id, item.color)}
-          className="text-red-500 hover:text-red-700 text-sm absolute right-2 bottom-4 cursor-pointer"
-        >
-          ✕
-        </button>
-      </div>
-    ))}
+                <div className="flex justify-between mt-4 p-4 text-lg font-semibold border-t">
+                  <span>Total:</span>
+                  <span>{totalPrice} EGP</span>
+                </div>
+              </>
+            )}
 
-    {/* TOTAL PRICE */}
-    <div className="flex justify-between mt-4 p-4 text-lg font-semibold border-t">
-      <span>Total:</span>
-      <span>{totalPrice} EGP</span>
-    </div>
-  </>
-)}
-
-
-            {/* FOOTER */}
+            {/* Cart Footer */}
             <div className="mt-6 border-t pt-4">
               <Link
                 to="/cart"
+                onClick={() => setCartOpen(false)}
                 className="block w-full text-center py-2 border rounded-md hover:bg-gray-100"
               >
                 View Cart
@@ -112,6 +149,7 @@ export default function Header() {
 
               <Link
                 to="/checkout"
+                onClick={() => setCartOpen(false)}
                 className="block w-full mt-3 text-center py-2 bg-black text-white rounded-md hover:bg-gray-800"
               >
                 Checkout
